@@ -143,6 +143,7 @@ endfunction
 set laststatus=2
 set statusline=
 set statusline+=[%n] " buffer number
+set statusline+=%m " buffer edited status
 set statusline+=\ %F " file path
 set statusline+=%*
 set statusline+=%=
