@@ -14,7 +14,6 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -27,8 +26,8 @@ inoremap <c-j> <Esc>/<++><CR>"_cf>
 inoremap ( ()<++><Esc>F)i
 inoremap [ []<++><Esc>F]i
 inoremap { {}<++><Esc>F}i
-inoremap ' ''<++><Esc>F'i
-inoremap " ""<++><Esc>F"i
+inoremap \' ''<++><Esc>F\'i
+inoremap \" ""<++><Esc>F\"i
 
 " configure fastfold
 " https://github.com/Konfekt/FastFold 
@@ -75,7 +74,6 @@ set encoding=utf-8
 
 set nu rnu
 
-
 if has('gui_running')
 	if has("win32")
 		set guifont=Consolas:h11
@@ -120,6 +118,9 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \   set tabstop=2
     \ | set softtabstop=2
     \ | set shiftwidth=2
+
+" remove whitespace command
+command! ClearWhitespaces %s/^\s\+$//g | %s/\s\+$//g
 
 " python with virtualenv support
 py3 << EOF
