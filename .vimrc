@@ -26,11 +26,11 @@ inoremap <c-j> <Esc>/<++><CR>"_cf>
 inoremap ( ()<++><Esc>F)i
 inoremap [ []<++><Esc>F]i
 inoremap { {}<++><Esc>F}i
-inoremap \' ''<++><Esc>F\'i
-inoremap \" ""<++><Esc>F\"i
+inoremap ' ''<++><Esc>F'i
+inoremap " ""<++><Esc>F"i
 
 " configure fastfold
-" https://github.com/Konfekt/FastFold 
+" https://github.com/Konfekt/FastFold
 nmap zuz <Plug>(FastFoldUpdate)
 let g:fastfold_savehook = 1
 let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
@@ -120,7 +120,7 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ | set shiftwidth=2
 
 " remove whitespace command
-command! ClearWhitespaces %s/^\s\+$//g | %s/\s\+$//g
+command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
 
 " python with virtualenv support
 py3 << EOF
