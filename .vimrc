@@ -14,20 +14,10 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'jiangmiao/auto-pairs'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-
-" A syntax for placeholders
-" Pressing Control-j jumps to the next match.
-inoremap <c-j> <Esc>/<++><CR>"_cf>
-
-" Completions using placeholders
-inoremap ( ()<++><Esc>F)i
-inoremap [ []<++><Esc>F]i
-inoremap { {}<++><Esc>F}i
-inoremap ' ''<++><Esc>F'i
-inoremap " ""<++><Esc>F"i
 
 " configure fastfold
 " https://github.com/Konfekt/FastFold
@@ -60,7 +50,7 @@ set wildmenu
 
 " look for the ctags index file in the source directory
 command! MakeTags !ctags -R .
-set tags=tags
+command! MakePyScope !find "$PWD/" -name "*.py" > cscope.files && cscope -Rbv -i cscope.files -f cscope.outset tags=tags
 
 " enable folding
 set foldmethod=indent
@@ -79,6 +69,7 @@ if has('gui_running')
 		set guifont=Consolas:h11
 	elseif has('gui_macvim')
 		set guifont=Menlo:h14
+		set macmeta
 	endif
 	set guioptions=e
 	set showtabline=1
@@ -99,7 +90,7 @@ au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-    \ set textwidth=0 |
+    \ set textwidth=80 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
@@ -132,18 +123,9 @@ if 'VIRTUAL_ENV' in os.environ:
   exec(open(activate_this, 'r').read(), dict(__file__=activate_this))
 EOF
 
-" status line
-function! GitInfo()
-  let git = fugitive#head()
-  if git != ''
-    return 'git:'.fugitive#head()
-  else
-    return ''
-endfunction
-
 set laststatus=2
 set statusline=
-set statusline+=[%n] " buffer number
+" set statusline+=[%n] " buffer number
 set statusline+=%m " buffer edited status
 set statusline+=\ %F " file path
 set statusline+=%*
@@ -151,8 +133,16 @@ set statusline+=%=
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-set statusline+=\ %{GitInfo()} " git info
+set statusline+=\ %{fugitive#head()} " git info
 set statusline+=\ %y " file type
 set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
 set statusline+=\ %P " file percentage
 
+command! OpenVimRC e $HOME/.vimrc
+command! UpdateVimRC source $HOME/.vimrc
+
+" kite configuration
+let g:kite_auto_complete=0
+
+" enable FlyMode for brackets
+let g:AutoPairsFlyMode=1
