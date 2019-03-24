@@ -66,8 +66,17 @@ Thumbs.db
 
 # ctags files
 ctags
+tags
 .ctags
 
 # cscope files
 cscope.files
 cscope.out
+cscope.in.out
+cscope.po.out
+cscope.outset
+
+# python
+.python-version
+Pipfile
+Piplile.lock
