@@ -1,5 +1,3 @@
-set fileformat=unix
-set fileformats=unix,dos
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -152,3 +150,6 @@ let g:kite_auto_complete=0
 
 " enable FlyMode for brackets
 let g:AutoPairsFlyMode=1
+
+set fileformat=unix
+set fileformats=unix,dos
