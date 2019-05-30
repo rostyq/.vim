@@ -1,4 +1,5 @@
-set ff=unix
+set fileformat=unix
+set fileformats=unix,dos
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
