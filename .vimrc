@@ -137,8 +137,11 @@ import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
   project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  exec(open(activate_this, 'r').read(), dict(__file__=activate_this))
+  try:
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    exec(open(activate_this, 'r').read(), dict(__file__=activate_this))
+  except Exception:
+    pass
 EOF
 
 set laststatus=2
