@@ -47,6 +47,12 @@ set path+=**
 
 " display all matching files when tab complete
 set wildmenu
+set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
+set wildignore+=venv/**
+set wildignore+=.git/**
+set wildignore+=*DS_Store*
+set wildignore+=dist/**,build/**
+set wildignore+=*/__pycache__/
 
 " set fileformats
 set fileformat=unix
