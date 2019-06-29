@@ -48,6 +48,17 @@ set path+=**
 " display all matching files when tab complete
 set wildmenu
 
+" set fileformats
+set fileformat=unix
+set fileformats=unix,dos
+
+" search as type ignoring case
+set incsearch
+set ignorecase
+
+" timeout delay for esckey
+set timeoutlen=1000 ttimeoutlen=10
+
 " look for the ctags index file in the source directory
 command! MakeTags !ctags -R .
 command! MakePyScope !find "$PWD/" -name "*.py" > cscope.files && cscope -Rbv -i cscope.files -f cscope.outset tags=tags
@@ -73,7 +84,7 @@ if has('gui_running')
 	endif
 	set guioptions=e
 	set showtabline=1
-	set background=light
+	set background=dark
 	colorscheme solarized
 	call togglebg#map("<F5>")
 else
@@ -98,6 +109,9 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
+
+" two space indent for yaml files
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " highlight python self and cls
 augroup python
@@ -150,6 +164,3 @@ let g:kite_auto_complete=0
 
 " enable FlyMode for brackets
 let g:AutoPairsFlyMode=1
-
-set fileformat=unix
-set fileformats=unix,dos
