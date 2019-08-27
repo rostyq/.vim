@@ -15,6 +15,7 @@ Plugin 'Konfekt/FastFold'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'isruslan/vim-es6'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -28,13 +29,17 @@ let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
 " configure simplefold
 let g:SimpylFold_docstring_preview = 1
-
 " syntastic default configure
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" python
 let g:syntastic_python_checkers = ['flake8']
+" javascript
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascript_standard_exec = 'happiness'
+let g:syntastic_javascript_standard_generic = 1
 
 " highlighing by syntax
 syntax on
@@ -118,8 +123,10 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix
 
-" two space indent for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
 
 " highlight python self and cls
 augroup python
@@ -130,11 +137,6 @@ augroup python
     		\ | syn keyword pythonCls cls
     		\ | highlight def link pythonCls Special
 augroup end
-
-au BufNewFile,BufRead *.js,*.html,*.css
-    \   set tabstop=2
-    \ | set softtabstop=2
-    \ | set shiftwidth=2
 
 " remove whitespace command
 command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
