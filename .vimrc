@@ -31,7 +31,7 @@ let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 let g:SimpylFold_docstring_preview = 1
 " syntastic default configure
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " python
@@ -84,6 +84,7 @@ nnoremap <space> za
 " set encoding
 set encoding=utf-8
 
+" show line number with relative steps
 set nu rnu
 
 if has('gui_running')
@@ -158,19 +159,19 @@ set laststatus=2
 set statusline=
 " set statusline+=[%n] " buffer number
 set statusline+=%m " buffer edited status
+set statusline+=\ %{fugitive#head()} " git info
+" set statusline+=\ %P " file percentage
 set statusline+=\ %F " file path
 set statusline+=%*
 set statusline+=%=
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-set statusline+=\ %{fugitive#head()} " git info
-set statusline+=\ %y " file type
-set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
-set statusline+=\ %P " file percentage
+"set statusline+=\ %y " file type
+" set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
 
-command! OpenVimRC e $HOME/.vimrc
-command! UpdateVimRC source $HOME/.vimrc
+command! OpenVimRC e $HOME/.vim/.vimrc
+command! UpdateVimRC source $HOME/.vim/.vimrc
 
 " kite configuration
 let g:kite_auto_complete=0
