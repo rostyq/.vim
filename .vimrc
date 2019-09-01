@@ -73,13 +73,15 @@ else
 endif
 
 nnoremap <space> za
-nmap zuz <Plug>(FastFoldUpdate)
+" uppercase word
+inoremap <c-u> <esc>viwUea
+nnoremap zuz <Plug>(FastFoldUpdate)
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
 command! MakeTags !ctags -R .
 command! MakePyScope !find "$PWD/" -name "*.py" > cscope.files && cscope -Rbv -i cscope.files -f cscope.outset tags=tags
-command! OpenVimRC e $HOME/.vim/.vimrc
-command! UpdateVimRC source $HOME/.vim/.vimrc
 
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
