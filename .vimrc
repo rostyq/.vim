@@ -20,26 +20,6 @@ Plugin 'isruslan/vim-es6'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" configure fastfold
-" https://github.com/Konfekt/FastFold
-nmap zuz <Plug>(FastFoldUpdate)
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-
-" configure simplefold
-let g:SimpylFold_docstring_preview = 1
-" syntastic default configure
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" python
-let g:syntastic_python_checkers = ['flake8']
-" javascript
-let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exe = 'npm run lint --'
-
 " highlighing by syntax
 syntax on
 
@@ -69,22 +49,30 @@ set ignorecase
 " timeout delay for esckey
 set timeoutlen=1000 ttimeoutlen=10
 
-" look for the ctags index file in the source directory
-command! MakeTags !ctags -R .
-command! MakePyScope !find "$PWD/" -name "*.py" > cscope.files && cscope -Rbv -i cscope.files -f cscope.outset tags=tags
-
 " enable folding
 set foldmethod=indent
 set foldlevel=99
-
-" enable folding with the space bar
-nnoremap <space> za
 
 " set encoding
 set encoding=utf-8
 
 " show line number with relative steps
 set nu rnu
+
+set laststatus=2
+set statusline=
+" set statusline+=[%n] " buffer number
+set statusline+=%m " buffer edited status
+set statusline+=\ %{fugitive#head()} " git info
+" set statusline+=\ %P " file percentage
+set statusline+=\ %F " file path
+set statusline+=%*
+set statusline+=%=
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+"set statusline+=\ %y " file type
+" set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
 
 if has('gui_running')
 	if has("win32")
@@ -102,17 +90,38 @@ else
 	colorscheme zenburn
 endif
 
+nnoremap <space> za
+nmap zuz <Plug>(FastFoldUpdate)
+
+command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
+command! MakeTags !ctags -R .
+command! MakePyScope !find "$PWD/" -name "*.py" > cscope.files && cscope -Rbv -i cscope.files -f cscope.outset tags=tags
+command! OpenVimRC e $HOME/.vim/.vimrc
+command! UpdateVimRC source $HOME/.vim/.vimrc
+
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc$,__pycache__,\.git'
-autocmd FileType netrw setl bufhidden=delete
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
+
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:SimpylFold_docstring_preview = 1
+
+let g:AutoPairsFlyMode=1
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+
+let g:kite_auto_complete=0
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -123,6 +132,7 @@ au BufNewFile,BufRead *.py
     \ set autoindent |
     \ set fileformat=unix
 
+autocmd FileType netrw setl bufhidden=delete
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
@@ -138,9 +148,6 @@ augroup python
     		\ | highlight def link pythonCls Special
 augroup end
 
-" remove whitespace command
-command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
-
 " python with virtualenv support
 py3 << EOF
 import os
@@ -154,26 +161,3 @@ if 'VIRTUAL_ENV' in os.environ:
     pass
 EOF
 
-set laststatus=2
-set statusline=
-" set statusline+=[%n] " buffer number
-set statusline+=%m " buffer edited status
-set statusline+=\ %{fugitive#head()} " git info
-" set statusline+=\ %P " file percentage
-set statusline+=\ %F " file path
-set statusline+=%*
-set statusline+=%=
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-"set statusline+=\ %y " file type
-" set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
-
-command! OpenVimRC e $HOME/.vim/.vimrc
-command! UpdateVimRC source $HOME/.vim/.vimrc
-
-" kite configuration
-let g:kite_auto_complete=0
-
-" enable FlyMode for brackets
-let g:AutoPairsFlyMode=1
