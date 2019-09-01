@@ -20,16 +20,19 @@ Plugin 'isruslan/vim-es6'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" highlighing by syntax
 syntax on
-
-" show inserted commands in normal mode
+set nu rnu
 set showcmd
-
-" tab completion for all path related tasks
+set incsearch
 set path+=**
+set timeoutlen=1000 ttimeoutlen=10
+set foldmethod=indent
+set foldlevel=99
 
-" display all matching files when tab complete
+set encoding=utf-8
+set fileformat=unix
+set fileformats=unix,dos
+
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
 set wildignore+=venv/**
@@ -37,27 +40,6 @@ set wildignore+=.git/**
 set wildignore+=*DS_Store*
 set wildignore+=dist/**,build/**
 set wildignore+=*/__pycache__/
-
-" set fileformats
-set fileformat=unix
-set fileformats=unix,dos
-
-" search as type ignoring case
-set incsearch
-set ignorecase
-
-" timeout delay for esckey
-set timeoutlen=1000 ttimeoutlen=10
-
-" enable folding
-set foldmethod=indent
-set foldlevel=99
-
-" set encoding
-set encoding=utf-8
-
-" show line number with relative steps
-set nu rnu
 
 set laststatus=2
 set statusline=
