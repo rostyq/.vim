@@ -37,9 +37,8 @@ let g:syntastic_check_on_wq = 0
 " python
 let g:syntastic_python_checkers = ['flake8']
 " javascript
-let g:syntastic_javascript_checkers = ['standard']
-let g:syntastic_javascript_standard_exec = 'happiness'
-let g:syntastic_javascript_standard_generic = 1
+let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 
 " highlighing by syntax
 syntax on
