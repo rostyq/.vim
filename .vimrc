@@ -35,10 +35,12 @@ set fileformats=unix,dos
 
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
-set wildignore+=venv/**
+set wildignore+=.venv/**,venv/**,env/**
+set wildignore+=node_modules/
 set wildignore+=.git/**
 set wildignore+=*DS_Store*
-set wildignore+=dist/**,build/**
+set wildignore+=build/**
+" set wildignore+=dist/**
 set wildignore+=*/__pycache__/
 
 set laststatus=2
