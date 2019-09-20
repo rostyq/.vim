@@ -9,6 +9,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
 Plugin 'tmhedberg/simpylfold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Konfekt/FastFold'
