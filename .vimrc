@@ -17,6 +17,7 @@ Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'isruslan/vim-es6'
+Plugin 'mattn/emmet-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -37,7 +38,7 @@ set fileformats=unix,dos
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
 set wildignore+=.venv/**,venv/**,env/**
-set wildignore+=node_modules/
+set wildignore+=node_modules/**
 set wildignore+=.git/**
 set wildignore+=*DS_Store*
 set wildignore+=build/**
@@ -91,6 +92,7 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
+let g:netrw_preview = 1
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc$,__pycache__,\.git'
 
 let g:fastfold_savehook = 1
@@ -108,7 +110,8 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 
-let g:kite_auto_complete=0
+let g:kite_auto_complete=1
+let g:kite_tab_complete=1
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
