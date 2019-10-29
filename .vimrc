@@ -60,6 +60,10 @@ set statusline+=%*
 "set statusline+=\ %y " file type
 " set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
 
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swap//
+set undodir=~/.vim/.undo//
+
 if has('gui_running')
 	if has("win32")
 		set guifont=Consolas:h11
