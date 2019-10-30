@@ -117,30 +117,27 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:kite_auto_complete=1
 let g:kite_tab_complete=1
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=80 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
+function SetPythonOptions()
+    setlocal tabstop=4
+    setlocal softtabstop=4
+    setlocal shiftwidth=4
+    setlocal textwidth=80
+    setlocal expandtab
+    setlocal autoindent
+    setlocal fileformat=unix
+    syntax keyword pythonSelf self
+    highlight def link pythonSelf Special
+    syntax keyword pythonCls cls
+    highlight def link pythonCls Special
+endfunction
 
 autocmd FileType netrw setl bufhidden=delete
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType python call SetPythonOptions()
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-
-" highlight python self and cls
-augroup python
-    autocmd!
-    autocmd FileType python
-                \   syn keyword pythonSelf self
-                \ | highlight def link pythonSelf Special
-    		\ | syn keyword pythonCls cls
-    		\ | highlight def link pythonCls Special
-augroup end
 
 " python with virtualenv support
 py3 << EOF
