@@ -1,3 +1,6 @@
 bundle/
 pack/
+.backup/
+.undo/
+.swap/
 .netrwhist
