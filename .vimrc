@@ -18,6 +18,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'isruslan/vim-es6'
 Plugin 'mattn/emmet-vim'
+Plugin 'cespare/vim-toml'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
