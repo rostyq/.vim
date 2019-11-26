@@ -19,6 +19,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'isruslan/vim-es6'
 Plugin 'mattn/emmet-vim'
 Plugin 'cespare/vim-toml'
+Plugin 'rust-lang/rust.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
