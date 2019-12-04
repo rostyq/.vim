@@ -66,13 +66,22 @@ set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swap//
 set undodir=~/.vim/.undo//
 
+function SetGuiFont()
+	try
+		set guifont=UbuntuMono-Regular:h16
+	catch /.*/
+		echom "Caught error: " . v:exception
+		if has("win32")
+			set guifont=Consolas:h11
+		elseif has("gui_macvim")
+			set guifont=Menlo:h14
+		endif
+	endtry
+endfunction
+
 if has('gui_running')
-	if has("win32")
-		set guifont=Consolas:h11
-	elseif has('gui_macvim')
-		set guifont=Menlo:h14
-		set macmeta
-	endif
+	call SetGuiFont()
+
 	set guioptions=e
 	set showtabline=1
 	set background=dark
@@ -80,6 +89,10 @@ if has('gui_running')
 	call togglebg#map("<F5>")
 else
 	colorscheme zenburn
+endif
+
+if has('gui_macvim')
+	set macmeta
 endif
 
 nnoremap <space> za
