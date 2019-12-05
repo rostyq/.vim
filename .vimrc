@@ -7,19 +7,26 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tmhedberg/simpylfold'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'Konfekt/FastFold'
+
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/syntastic'
+
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'Konfekt/FastFold'
+Plugin 'tmhedberg/simpylfold'
+Plugin 'tpope/vim-surround'
+
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-python/python-syntax'
+
 Plugin 'isruslan/vim-es6'
 Plugin 'mattn/emmet-vim'
-Plugin 'cespare/vim-toml'
+
 Plugin 'rust-lang/rust.vim'
+Plugin 'cespare/vim-toml'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -69,7 +76,7 @@ set undodir=~/.vim/.undo//
 function SetGuiFont()
 	try
 		set guifont=UbuntuMono-Regular:h18
-	catch /.*/
+	catch
 		echom "Caught error: " . v:exception
 		if has("win32")
 			set guifont=Consolas:h11
@@ -131,8 +138,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 
 let g:kite_auto_complete=1
 let g:kite_tab_complete=1
+let g:python_highlight_all = 1
 
-function SetPythonOptions()
+function SetPythonLocals()
     setlocal tabstop=4
     setlocal softtabstop=4
     setlocal shiftwidth=4
@@ -140,19 +148,12 @@ function SetPythonOptions()
     setlocal expandtab
     setlocal autoindent
     setlocal fileformat=unix
-
-    syntax keyword pythonSelf self
-    syntax keyword pythonCls cls
-
-    highlight def link pythonSelf Special
-    highlight def link pythonCls Special
-
 endfunction
 
 autocmd FileType netrw setl bufhidden=delete
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType python call SetPythonOptions()
+autocmd FileType python call SetPythonLocals()
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
@@ -162,11 +163,14 @@ py3 << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  try:
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    exec(open(activate_this, 'r').read(), dict(__file__=activate_this))
-  except Exception:
-    pass
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    try:
+        activate_this = os.path.join(
+	    project_base_dir, 'bin', 'activate_this.py'
+	)
+        with open(activate_this, 'r') as f:
+            exec(f.read(), dict(__file__=activate_this))
+    except Exception:
+      pass
 EOF
 
