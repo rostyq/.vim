@@ -8,7 +8,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 
 Plugin 'tpope/vim-fugitive'
@@ -86,16 +85,14 @@ function SetGuiFont()
 	endtry
 endfunction
 
+colorscheme solarized
+call togglebg#map("<F5>")
+
 if has('gui_running')
 	call SetGuiFont()
-
 	set guioptions=e
 	set showtabline=1
 	set background=dark
-	colorscheme solarized
-	call togglebg#map("<F5>")
-else
-	colorscheme zenburn
 endif
 
 if has('gui_macvim')
