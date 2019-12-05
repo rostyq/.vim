@@ -68,13 +68,13 @@ set undodir=~/.vim/.undo//
 
 function SetGuiFont()
 	try
-		set guifont=UbuntuMono-Regular:h16
+		set guifont=UbuntuMono-Regular:h18
 	catch /.*/
 		echom "Caught error: " . v:exception
 		if has("win32")
 			set guifont=Consolas:h11
 		elseif has("gui_macvim")
-			set guifont=Menlo:h14
+			set guifont=Menlo:h15
 		endif
 	endtry
 endfunction
@@ -140,10 +140,13 @@ function SetPythonOptions()
     setlocal expandtab
     setlocal autoindent
     setlocal fileformat=unix
+
     syntax keyword pythonSelf self
-    highlight def link pythonSelf Special
     syntax keyword pythonCls cls
+
+    highlight def link pythonSelf Special
     highlight def link pythonCls Special
+
 endfunction
 
 autocmd FileType netrw setl bufhidden=delete
