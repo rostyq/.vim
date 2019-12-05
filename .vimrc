@@ -86,16 +86,18 @@ function SetGuiFont()
 	endif
 endfunction
 
+function SetSolarized()
+	colorscheme solarized
+	call togglebg#map("<F5>")
+endfunction
+
 if has('gui_running')
-	call SetGuiFont()
 	set guioptions=e
 	set showtabline=1
 	set background=dark
 
-	if has('unix') || has('gui_macvim')
-		colorscheme solarized
-		call togglebg#map("<F5>")
-	endif
+	call SetGuiFont()
+	call SetSolarized()
 
 	if has('gui_macvim')
 		set macmeta
