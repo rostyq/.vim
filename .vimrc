@@ -73,30 +73,33 @@ set directory=~/.vim/.swap//
 set undodir=~/.vim/.undo//
 
 function SetGuiFont()
-	try
-		set guifont=UbuntuMono-Regular:h18
-	catch
-		echom "Caught error: " . v:exception
-		if has("win32")
-			set guifont=Consolas:h11
-		elseif has("gui_macvim")
-			set guifont=Menlo:h15
-		endif
-	endtry
+	if has("win32")
+		set guifont=Consolas:h11
+	else
+		try
+			set guifont=UbuntuMono-Regular:h18
+		catch
+			if has("gui_macvim")
+				set guifont=Menlo:h15
+			endif
+		endtry
+	endif
 endfunction
-
-colorscheme solarized
-call togglebg#map("<F5>")
 
 if has('gui_running')
 	call SetGuiFont()
 	set guioptions=e
 	set showtabline=1
 	set background=dark
-endif
 
-if has('gui_macvim')
-	set macmeta
+	if has('unix') || has('gui_macvim')
+		colorscheme solarized
+		call togglebg#map("<F5>")
+	endif
+
+	if has('gui_macvim')
+		set macmeta
+	endif
 endif
 
 nnoremap <space> za
