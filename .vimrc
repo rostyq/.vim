@@ -43,6 +43,7 @@ set encoding=utf-8
 set fileformat=unix
 set fileformats=unix,dos
 
+set completeopt=menu
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
 set wildignore+=.venv/**,venv/**,env/**
@@ -77,7 +78,7 @@ function SetGuiFont()
 		set guifont=Consolas:h11
 	else
 		try
-			set guifont=UbuntuMono-Regular:h18
+			set guifont=UbuntuMono-Regular:h16
 		catch
 			if has("gui_macvim")
 				set guifont=Menlo:h15
