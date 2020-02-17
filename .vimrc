@@ -16,7 +16,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Konfekt/FastFold'
 Plugin 'tmhedberg/simpylfold'
-Plugin 'tpope/vim-surround'
+Plugin 'machakann/vim-sandwich'
 
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-python/python-syntax'
@@ -113,6 +113,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
+command! PrettifyJson %!python -m json.tool
 command! MakeTags !ctags -R .
 command! MakePyScope !find "$PWD/" -name "*.py" > cscope.files && cscope -Rbv -i cscope.files -f cscope.outset tags=tags
 
@@ -129,7 +130,7 @@ let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 let g:SimpylFold_docstring_preview = 1
 
-let g:AutoPairsFlyMode=1
+let g:AutoPairsFlyMode=0
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
@@ -160,6 +161,7 @@ autocmd FileType python call SetPythonLocals()
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType markdown setlocal wrap linebreak nolist
 
 " python with virtualenv support
 py3 << EOF
