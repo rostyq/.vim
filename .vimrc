@@ -11,6 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'scrooloose/syntastic'
 
 Plugin 'jiangmiao/auto-pairs'
