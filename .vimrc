@@ -1,11 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
@@ -45,6 +43,8 @@ set fileformat=unix
 set fileformats=unix,dos
 
 set completeopt=menu
+set complete=.,k
+
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
 set wildignore+=.venv/**,venv/**,env/**
@@ -62,13 +62,15 @@ set statusline+=%m " buffer edited status
 set statusline+=\ %{fugitive#head()} " git info
 " set statusline+=\ %P " file percentage
 set statusline+=\ %F " file path
+set statusline+=\ %{kite#statusline()}
 set statusline+=%*
 set statusline+=%=
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-"set statusline+=\ %y " file type
-" set statusline+=\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}] " file encoding
+set statusline+=\ %y " file type
+set statusline+=[%{&ff}:%{(&fenc!=''?&fenc:&enc)}] " file encoding
+set statusline+=\ %l:%c
 
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swap//
@@ -146,20 +148,15 @@ let g:kite_auto_complete=1
 let g:kite_tab_complete=1
 let g:python_highlight_all = 1
 
-function SetPythonLocals()
-    setlocal tabstop=4
-    setlocal softtabstop=4
-    setlocal shiftwidth=4
-    setlocal textwidth=80
-    setlocal expandtab
-    setlocal autoindent
-    setlocal fileformat=unix
-endfunction
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 autocmd FileType netrw setl bufhidden=delete
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType toml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType python call SetPythonLocals()
+autocmd FileType python setl ts=4 sts=4 sw=4 tw=80 et ai ff=unix
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
@@ -173,8 +170,8 @@ if 'VIRTUAL_ENV' in os.environ:
     project_base_dir = os.environ['VIRTUAL_ENV']
     try:
         activate_this = os.path.join(
-	    project_base_dir, 'bin', 'activate_this.py'
-	)
+        project_base_dir, 'bin', 'activate_this.py'
+    )
         with open(activate_this, 'r') as f:
             exec(f.read(), dict(__file__=activate_this))
     except Exception:
