@@ -20,11 +20,13 @@ Plugin 'machakann/vim-sandwich'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-python/python-syntax'
 
-Plugin 'isruslan/vim-es6'
+Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
 
 Plugin 'rust-lang/rust.vim'
 Plugin 'cespare/vim-toml'
+
+Plugin 'tikhomirov/vim-glsl'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -43,7 +45,7 @@ set fileformat=unix
 set fileformats=unix,dos
 
 set completeopt=menu
-set complete=.,k
+set complete=.,k,b,u,w,t
 
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc "stuff to ignore when tab completing
@@ -116,6 +118,12 @@ nnoremap zuz <Plug>(FastFoldUpdate)
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+nnoremap <silent> <C-Right> :bnext<cr>
+nnoremap <silent> <C-Left> :previous<cr>
+
+nnoremap <silent> <C-Up> :cnext<cr>
+nnoremap <silent> <C-Down> :cprevious<cr>
+
 command! ClearWhitespaces %s/^\s\+$//e | %s/\s\+$//e
 command! PrettifyJson %!python -m json.tool
 command! MakeTags !ctags -R .
@@ -144,6 +152,8 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 
+let g:javascript_plugin_jsdoc = 1
+
 let g:kite_auto_complete=1
 let g:kite_tab_complete=1
 let g:python_highlight_all = 1
@@ -161,6 +171,11 @@ autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal wrap linebreak nolist
+
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
 
 " python with virtualenv support
 py3 << EOF
